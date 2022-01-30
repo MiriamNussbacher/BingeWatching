@@ -9,6 +9,7 @@ namespace BingeWatching
 {
     public class ContentMenuStateHandler : IMenuStateHandler
     {
+        
         private static readonly HttpClient client = new HttpClient();
 
         public bool CanHandle(MenuState menuState)
@@ -47,55 +48,27 @@ namespace BingeWatching
             while (toContinue)
             {
                 string url = $"https://api.reelgood.com/v3.0/content/random?availability=onAnySource&content_kind={content_kind}&nocache=true&region=us&sources=netflix";
-            // var stringTask = client.GetStreamAsync(url);
-
-            //HttpResponseMessage response = await client.GetAsync(url);
-            //response.EnsureSuccessStatusCode();
-            //string responseBody = await response.Content.ReadAsStringAsync();
-            
+          
             var response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content;
 
-                // by calling .Result you are synchronously reading the result
                 string responseString = responseContent.ReadAsStringAsync().Result;
                  netflixItem = JsonSerializer.Deserialize<NetflixItem>(responseString);
-                // Console.WriteLine(responseString);
             }
 
 
            
-          //  NetflixItem netflixItem=null;
-            
-         //       netflixItem =  JsonSerializer.Deserialize<NetflixItem>(responseString);
-                toContinue = !Menu.currentUser.foundInHistory(netflixItem.id);
+                 toContinue = !Menu.currentUser.foundInHistory(netflixItem.id);
             }
             Console.WriteLine($"You are now watching {netflixItem.Title}");
             HandleInput.HandleEndOfWatching();
-            //bool flag = true;
-            //while (flag)
-            //{
-            //    Console.WriteLine($"Did You Finish Watching Y/N?");
-            //    //char choice = char.ToUpperInvariant(Console.ReadKey().KeyChar);
-            //    string choice = Console.ReadLine();
-            //    Console.WriteLine($"choice {choice}");
-            //    Console.WriteLine();
-            //    if (choice.ToUpper() == "N")
-            //    {
-            //        Thread.Sleep(2000);
-
-            //    }
-            //    else
-               // {
                    
-                    netflixItem.UserRanking = HandleInput.handleRankRange();
-                    Menu.currentUser.saveToHistory(netflixItem);
-               //     flag = false;
-            ////
-             //   }
-
+            netflixItem.UserRanking = HandleInput.handleRankRange();
+            Menu.currentUser.saveToHistory(netflixItem);
+    
 
             
 

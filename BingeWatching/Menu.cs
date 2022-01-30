@@ -7,6 +7,7 @@ namespace BingeWatching
     public sealed class Menu
     {
         public static User currentUser;
+      //  public static User user = new User();
 
         private readonly IList<IMenuStateHandler> _menuStateHandlers = new List<IMenuStateHandler>
         {

@@ -15,6 +15,12 @@ namespace BingeWatching
         public   List<NetflixItem> historyItems { get; set; }
         private static List<User> users= new List<User>();
 
+        public IHandleInput _handleInput;
+        //public User(IHandleInput handle)
+        //{
+        //    _handleInput = handle;
+        //}
+
 
         public static void DisplayUserHistory()
         {
@@ -32,24 +38,18 @@ namespace BingeWatching
 
         public static void InitUsers()
         {
-         users= new List<User>
+            users = new List<User>
 
                 {
-                    new User { userName= "Miriam", historyItems=new List<NetflixItem>()},
-                    new User { userName = "Donald Trump",historyItems=new List<NetflixItem>() },
-                    new User { userName = "Joe Bidan",historyItems=new List<NetflixItem>() }
+                    new User{ userName= "Miriam", historyItems=new List<NetflixItem>()},
+                    new User{ userName = "Donald Trump",historyItems=new List<NetflixItem>() },
+                    new User{ userName = "Joe Bidan",historyItems=new List<NetflixItem>() }
                 };
     }
 
-        internal static void Login(bool fromSwitchUser)
+         public static void Login(bool fromSwitchUser)
         {
             HandleInput.handleLogin(fromSwitchUser);
-           // while (Menu.currentUser == null)//find current user
-           // {
-             //   Console.WriteLine("Hi There! Please enter your name");
-               // Menu.currentUser = User.getUserByName(Console.ReadLine());
-           // }
-
         }
 
         public static User getUserByName(string userName)
@@ -58,7 +58,11 @@ namespace BingeWatching
         }
 
         public bool foundInHistory(Guid id)
+
         {
+            if (Menu.currentUser.historyItems.Count == 0) //now history for this user
+                return false;
+
             List<NetflixItem> historyItems1 = Menu.currentUser.historyItems;
             var result= historyItems1.FirstOrDefault(item => item.id.CompareTo(id) > 0);
             return result == null;

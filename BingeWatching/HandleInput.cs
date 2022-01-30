@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace BingeWatching
 {
-    public static class HandleInput
+    public static class HandleInput 
     {
         public static int handleRankRange()
         {
@@ -30,13 +30,31 @@ namespace BingeWatching
 
         }
 
-        public static void handleLogin(bool fromSwitchUser=false)
-        {
+        //public static int validateUserRank(string range)
+        //{
+        //    bool success = false;
+        //    int number;
+        //     success = int.TryParse(range, out number);
+        //    if (success)
+        //    {
+        //        if (number >= 0 && number <= 10)
+        //            return number;
+        //        else
+        //            success = false;
+        //    }
+
+        //    ret
+
             
+        //}
+
+        public static void handleLogin(bool fromSwitchUser = false)
+        {
+
             while (Menu.currentUser == null || fromSwitchUser)//find current user
-             {
-            Console.WriteLine("Hi There! Please enter your name");
-            Menu.currentUser = User.getUserByName(Console.ReadLine());
+            {
+                Console.WriteLine("Hi There! Please enter your name");
+                Menu.currentUser = User.getUserByName(Console.ReadLine());
                 fromSwitchUser = false;
             }
         }
@@ -60,11 +78,11 @@ namespace BingeWatching
                     return;
                 }
 
-                }
+            }
         }
 
 
-            public static void printToUser(string message)
+        public static void printToUser(string message)
         {
             Console.WriteLine($"Hi {Menu.currentUser.userName}, { message}");
         }

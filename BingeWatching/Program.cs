@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BingeWatching
 {
@@ -6,6 +7,17 @@ namespace BingeWatching
     {
         public static void Main()
         {
+
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+         //   services
+                //.AddSingleton<Executor, Executor>()
+                //BuildServiceProvider()
+                //.GetService<Executor>()
+           //     .Execute();
+        
+
+       
             try
             {
                 Console.WriteLine("Welcome to Netflix Binge watching service.");
@@ -17,6 +29,12 @@ namespace BingeWatching
                 //write to logger;
                 Console.WriteLine("An Error Occoured, Please try Later!");
             }
+        }
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            //            services
+        //        .AddSingleton<IHandleInput, HandleInput>();
+
         }
     }
 }
